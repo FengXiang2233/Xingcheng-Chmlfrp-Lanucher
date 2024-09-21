@@ -1,5 +1,7 @@
 import customtkinter as ctk
 import sys
+import win32gui,win32con
+import ctypes
 
 from core.GUI.mainTabView import MainTabView
 from core.GUI import windowManager
@@ -25,14 +27,17 @@ class Main(ctk.CTk):
         self.shelter_left.place(x=0,y=0)
         self.shelter_right=ctk.CTkLabel(self,text="",width=13,height=480,bg_color="#0000FF")
         self.shelter_right.place(x=797,y=0)
-        # 识别鼠标拖拽事件
         self.bind("<ButtonPress-1>",windowManager.moveWindow.on_drag_start)
         self.bind("<B1-Motion>",windowManager.moveWindow.on_drag)
         self.bind("<ButtonRelease-1>",windowManager.moveWindow.on_drag_stop)
         # Login 窗口处理
         self.main_tab_view.add_tab("登录")
         self.main_tab_view.add_tab("设置")
-        
+        # -
+        self.update_idletasks()
+        self.hwnd=win32gui.FindWindow(None, self.title())
+        self.add_taskbar_icon()
+
     # Override
     def mainloop(self, *args, **kwargs):
         if not self._window_exists:
@@ -45,8 +50,26 @@ class Main(ctk.CTk):
             self._window_exists = True
         g_var.GUI.Cover=ctk.CTkToplevel(g_var.GUI.MainWin)
         windowManager.upCover()
+        self.check_topmost()
         super().mainloop(*args, **kwargs)
 
     # 关闭窗口
     def close_win(self):
         self.destroy()
+
+    def check_topmost(self):
+        # 获取当前最上面的窗口句柄
+        top_window = win32gui.GetForegroundWindow()
+        if top_window == self.hwnd:
+            g_var.GUI.Cover.attributes('-topmost', 'true')
+            g_var.GUI.Cover.attributes('-topmost', 'false')
+        # 继续循环检查
+        self.after(75, self.check_topmost)
+    
+    # 保留任务栏图标
+    def add_taskbar_icon(self):
+        # 修改窗口样式，WS_EX_APPWINDOW 确保窗口在任务栏中显示
+        extended_style = win32gui.GetWindowLong(self.hwnd, win32con.GWL_EXSTYLE)
+        win32gui.SetWindowLong(self.hwnd, win32con.GWL_EXSTYLE, extended_style | win32con.WS_EX_APPWINDOW)
+        win32gui.SetWindowPos(self.hwnd, win32con.HWND_NOTOPMOST, 0, 0, 0, 0,
+                            win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_FRAMECHANGED)
