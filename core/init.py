@@ -1,5 +1,6 @@
 import os
 import logging
+import customtkinter as ctk
 
 from core import g_var
 from PIL import Image
@@ -21,4 +22,6 @@ def LanucherInit():
     if not os.path.isfile("./temp/bg.jpg"):
         Image.new(mode='RGB',size=(810,450),color=(201,221,244)).save("./temp/bg.jpg")
         logging.debug("背景图片不存在 已自动创建")
+    # theme
+    ctk.set_default_color_theme("./core/GUI/xcTheme.json")
     g_var.GUI.BgPic=Image.open("./temp/bg.jpg").resize((810,450))
