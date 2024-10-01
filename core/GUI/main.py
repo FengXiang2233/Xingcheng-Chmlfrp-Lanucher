@@ -57,11 +57,14 @@ class Main(ctk.CTk):
         self.destroy()
 
     def check_topmost(self):
-        # 获取当前最上面的窗口句柄
-        top_window = win32gui.GetForegroundWindow()
-        if top_window == self.hwnd:
-            g_var.GUI.Cover.attributes('-topmost', 'true')
-            g_var.GUI.Cover.attributes('-topmost', 'false')
+        try:
+            # 获取当前最上面的窗口句柄
+            top_window = win32gui.GetForegroundWindow()
+            if top_window == self.hwnd:
+                g_var.GUI.Cover.attributes('-topmost', 'true')
+                g_var.GUI.Cover.attributes('-topmost', 'false')
+        except:
+            pass
         # 继续循环检查
         self.after(50, self.check_topmost)
     
