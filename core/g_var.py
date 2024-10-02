@@ -1,6 +1,7 @@
 import customtkinter as ctk
+import core.GUI.page.login as login
+from core.User import User as user
 from core.GUI import main
-from core.GUI.page import login
 from PIL import ImageFile
 
 class GUI:
@@ -13,3 +14,4 @@ class GUI:
     mainTabMap={
         "登录":login.loginFrame
     }
+User:user
