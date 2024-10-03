@@ -36,7 +36,14 @@ def upCover():
     g_var.GUI.Cover.attributes('-topmost', 'true')
     g_var.GUI.Cover.attributes("-alpha", 0.9)
     g_var.GUI.Cover.overrideredirect(True)
-    g_var.GUI.mainTabMap[g_var.GUI.mainTab](g_var.GUI.Cover).place(x=0,y=0)
+    g_var.GUI.mainTabMap[g_var.GUI.MainWin.main_tab_view.get()](g_var.GUI.Cover).place(x=0,y=0)
     g_var.GUI.Cover.geometry(f"{g_var.GUI.MainWin.winfo_x()+14}+{g_var.GUI.MainWin.winfo_y()+49}")
     g_var.GUI.Cover.attributes('-topmost', 'false')
-    
+
+def upLoginAfter():
+    g_var.GUI.MainWin.main_tab_view.delete("登录")
+    g_var.GUI.MainWin.main_tab_view.delete("设置")
+    g_var.GUI.MainWin.main_tab_view.add_tab("Home")
+    g_var.GUI.MainWin.main_tab_view.add_tab("设置")
+    g_var.GUI.MainWin.main_tab_view.set("Home")
+    upCover()
