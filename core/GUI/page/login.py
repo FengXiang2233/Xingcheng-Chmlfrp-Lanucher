@@ -1,6 +1,9 @@
 import customtkinter as ctk
+import requests
 
 import core.g_var
+from io import BytesIO
+from PIL import Image
 from core.User import User as user
 from core.GUI.windowManager import upLoginAfter
 from core.network.chmlfrp_APIv2 import APIv2 as API
@@ -22,13 +25,14 @@ class loginMain(ctk.CTkFrame):
         self.ckb_KeepLogin.place(x=65,y=185)
         self.tip:ctk.CTkLabel
     def login(self):
+        self.login_B.configure(text="登录中...",state="disabled")
         self.tip:ctk.CTkLabel=ctk.CTkLabel(self,text="账号密码错误",font=("微软雅黑",12.6),text_color="#ff0000")
         self.tip.place(x=176,y=183)
         self.tip.destroy()
-        self.login_B.configure(text="登录中...",state="disabled")
         data=API.login(self.input.usernameEntry.get(),self.input.passwordEntey.get())
         if data is not None:
             core.g_var.User=user(data)
+            Image.open(BytesIO(requests.get(core.g_var.User.basicInfo["userimg"]).content)).save("./XCL/userimg.jpg",'JPEG')
             upLoginAfter()
         else:
             self.tip:ctk.CTkLabel=ctk.CTkLabel(self,text="账号密码错误",font=("微软雅黑",12.6),text_color="#ff0000")

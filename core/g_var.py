@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import core.GUI.page.home as home
 import core.GUI.page.login as login
 import core.GUI.page.setting as setting
 from core.User import User as user
@@ -13,6 +14,7 @@ class GUI:
     winY=0
     mainTabMap={
         "登录":login.loginFrame,
-        "设置":setting.settingFrame
+        "设置":setting.settingFrame,
+        "Home":home.homeFrame
     }
 User:user

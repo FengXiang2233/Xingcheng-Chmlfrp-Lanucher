@@ -20,14 +20,15 @@ class moveWindow:
             new_x=g_var.GUI.MainWin.winfo_x()+deltax
             new_y=g_var.GUI.MainWin.winfo_y()+deltay
             g_var.GUI.MainWin.geometry(f"+{new_x}+{new_y}")
-            g_var.GUI.Cover.geometry(f"+{new_x+14}+{new_y+49}")
+            g_var.GUI.Cover.geometry(f"+{new_x+13}+{new_y+49}")
 
     # 处理鼠标释放事件
     def on_drag_stop(event):
         g_var.GUI.winX=0
         g_var.GUI.winY=0
         g_var.GUI.Cover.attributes('-topmost', 'false')
-
+# TODO <优化>修改更新覆盖层更新逻辑
+# 不重设覆盖层窗口 只重设Frame
 def upCover():
     g_var.GUI.Cover.destroy()
     g_var.GUI.Cover=ctk.CTkToplevel(g_var.GUI.MainWin,fg_color="#0000ff")
@@ -37,7 +38,14 @@ def upCover():
     g_var.GUI.Cover.attributes("-alpha", 0.9)
     g_var.GUI.Cover.overrideredirect(True)
     g_var.GUI.mainTabMap[g_var.GUI.MainWin.main_tab_view.get()](g_var.GUI.Cover).place(x=0,y=0)
-    g_var.GUI.Cover.geometry(f"{g_var.GUI.MainWin.winfo_x()+14}+{g_var.GUI.MainWin.winfo_y()+49}")
+    g_var.GUI.Cover.geometry(f"{g_var.GUI.MainWin.winfo_x()+13}+{g_var.GUI.MainWin.winfo_y()+49}")
+    g_var.GUI.Cover.bind("<ButtonPress-1>",topWin)
+    g_var.GUI.Cover.attributes('-topmost', 'false')
+
+def topWin(arg):
+    g_var.GUI.Cover.attributes('-topmost', 'true')
+    g_var.GUI.MainWin.attributes('-topmost', 'true')
+    g_var.GUI.MainWin.attributes('-topmost', 'false')
     g_var.GUI.Cover.attributes('-topmost', 'false')
 
 def upLoginAfter():
