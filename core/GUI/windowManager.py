@@ -8,7 +8,7 @@ class moveWindow:
     def on_drag_start(event):
         g_var.GUI.Cover.attributes('-topmost', 'true')
         # 识别按下位置
-        if str(event.widget)==".!maintabview" or str(event.widget)==".!maintabview.!ctkcanvas":
+        if str(event.widget)==".!maintabview" or str(event.widget)==".!maintabview.!ctkcanvas" or str(event.widget)==".!ctklabel.!label":
             g_var.GUI.winX=event.x
             g_var.GUI.winY=event.y
 
@@ -35,7 +35,7 @@ def upCover():
     g_var.GUI.Cover.geometry("783x418")
     g_var.GUI.Cover.wm_attributes('-transparentcolor','#0000ff')
     g_var.GUI.Cover.attributes('-topmost', 'true')
-    g_var.GUI.Cover.attributes("-alpha", 0.9)
+    g_var.GUI.Cover.attributes("-alpha", 0.85)
     g_var.GUI.Cover.overrideredirect(True)
     g_var.GUI.mainTabMap[g_var.GUI.MainWin.main_tab_view.get()](g_var.GUI.Cover).place(x=0,y=0)
     g_var.GUI.Cover.geometry(f"{g_var.GUI.MainWin.winfo_x()+13}+{g_var.GUI.MainWin.winfo_y()+49}")
@@ -53,5 +53,7 @@ def upLoginAfter():
     g_var.GUI.MainWin.main_tab_view.delete("设置")
     g_var.GUI.MainWin.main_tab_view.add_tab("Home")
     g_var.GUI.MainWin.main_tab_view.add_tab("设置")
+    g_var.GUI.MainWin.main_tab_view.add_tab("隧道管理")
     g_var.GUI.MainWin.main_tab_view.set("Home")
+    g_var.User.updateTunnel()
     upCover()
