@@ -1,3 +1,5 @@
+.idea/
+frpc.ini
 XCL/
 # Byte-compiled / optimized / DLL files
 __pycache__/

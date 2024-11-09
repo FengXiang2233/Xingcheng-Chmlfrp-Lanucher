@@ -30,10 +30,11 @@ class loginMain(ctk.CTkFrame):
         self.tip.place(x=176,y=183)
         self.tip.destroy()
         data=API.login(self.input.usernameEntry.get(),self.input.passwordEntey.get())
+        # TODO 自动下载frpc
         # FIXME 登录报错后按钮无法正常还原
         if data is not None:
             core.g_var.User=user(data)
-            Image.open(BytesIO(requests.get(core.g_var.User.basicInfo["userimg"]).content)).save("./XCL/userimg.jpg",'JPEG')
+            Image.open(BytesIO(requests.get(core.g_var.User.basicInfo["userimg"]).content)).save("./XCL/userimg.png",'PNG')
             upLoginAfter()
         else:
             self.tip:ctk.CTkLabel=ctk.CTkLabel(self,text="账号密码错误",font=("微软雅黑",12.6),text_color="#ff0000")

@@ -11,6 +11,7 @@ class GUI:
     MainWin:main.Main
     BgPic:ImageFile
     Cover:ctk.CTkToplevel
+    CoverFrame:ctk.CTkFrame
     winX=0
     winY=0
     mainTabMap={

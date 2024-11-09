@@ -1,7 +1,6 @@
 import customtkinter as ctk
 import sys
 import win32gui,win32con
-import ctypes
 
 from core.GUI.mainTabView import MainTabView
 from core.GUI import windowManager
@@ -50,7 +49,7 @@ class Main(ctk.CTk):
 
             self._window_exists = True
         g_var.GUI.Cover=ctk.CTkToplevel(g_var.GUI.MainWin)
-        windowManager.upCover()
+        windowManager.unsetCover()
         self.check_topmost()
         super().mainloop(*args, **kwargs)
 

@@ -27,20 +27,25 @@ class moveWindow:
         g_var.GUI.winX=0
         g_var.GUI.winY=0
         g_var.GUI.Cover.attributes('-topmost', 'false')
-# TODO <优化>修改更新覆盖层更新逻辑
-# 不重设覆盖层窗口 只重设Frame
+
 def upCover():
-    g_var.GUI.Cover.destroy()
-    g_var.GUI.Cover=ctk.CTkToplevel(g_var.GUI.MainWin,fg_color="#0000ff")
-    g_var.GUI.Cover.geometry("783x418")
+    g_var.GUI.CoverFrame.destroy()
     g_var.GUI.Cover.wm_attributes('-transparentcolor','#0000ff')
     g_var.GUI.Cover.attributes('-topmost', 'true')
-    g_var.GUI.Cover.attributes("-alpha", 0.85)
-    g_var.GUI.Cover.overrideredirect(True)
-    g_var.GUI.mainTabMap[g_var.GUI.MainWin.main_tab_view.get()](g_var.GUI.Cover).place(x=0,y=0)
+    g_var.GUI.CoverFrame=g_var.GUI.mainTabMap[g_var.GUI.MainWin.main_tab_view.get()](g_var.GUI.Cover)
+    g_var.GUI.CoverFrame.place(x=0,y=0)
     g_var.GUI.Cover.geometry(f"{g_var.GUI.MainWin.winfo_x()+13}+{g_var.GUI.MainWin.winfo_y()+49}")
     g_var.GUI.Cover.bind("<ButtonPress-1>",topWin)
     g_var.GUI.Cover.attributes('-topmost', 'false')
+
+def unsetCover():
+    g_var.GUI.Cover.destroy()
+    g_var.GUI.Cover = ctk.CTkToplevel(g_var.GUI.MainWin, fg_color="#0000ff")
+    g_var.GUI.Cover.geometry("783x418")
+    g_var.GUI.Cover.attributes("-alpha", 0.85)
+    g_var.GUI.Cover.overrideredirect(True)
+    g_var.GUI.CoverFrame=ctk.CTkFrame(g_var.GUI.Cover)
+    upCover()
 
 def topWin(arg):
     g_var.GUI.Cover.attributes('-topmost', 'true')

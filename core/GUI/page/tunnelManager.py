@@ -2,6 +2,7 @@ import customtkinter as ctk
 import win32clipboard
 
 from core.GUI.widgets.panelButton import panelBButton,panelRButton
+from core.Functions.startFrpc import startFrpc
 import core.g_var
 
 class tunnelManagerFrame(ctk.CTkFrame):
@@ -23,8 +24,8 @@ class tunnelManagerMain(ctk.CTkScrollableFrame):
 class tunnelCard(ctk.CTkFrame):
     def __init__(self,master,info:dict):
         super().__init__(master,fg_color="#e5e5e5",width=245,height=183,corner_radius=12)
-        self.tun_id=ctk.CTkLabel(self,text="#"+str(info["id"]),font=("微软雅黑",15.5))
-        self.tun_id.place(x=13,y=7)
+        self.tun_id=info["id"]
+        ctk.CTkLabel(self,text=f"# {self.tun_id}",font=("微软雅黑",15.5)).place(x=13,y=7)
         ctk.CTkLabel(self,text=info["name"],font=("微软雅黑",15.5,"bold")).place(x=(len(str(info["id"]))+2)*9+13,y=7)
         ctk.CTkLabel(self,text="内网地址: "+info["localip"]+":"+str(info["nport"])+" - "+info["type"],font=("微软雅黑",13)).place(x=13,y=37)
         ctk.CTkLabel(self,text="节点信息: "+info["node"],font=("微软雅黑",13)).place(x=13,y=57)
@@ -36,8 +37,12 @@ class tunnelCard(ctk.CTkFrame):
             cUrlLabel=ctk.CTkLabel(self,text="连接地址: ",font=("微软雅黑",13))
         cUrlLabel.bind("<ButtonPress-1>",self.copyUrl)
         cUrlLabel.place(x=13,y=77)
-        panelBButton(self,text="启动隧道",width=219).place(x=13,y=108)
+        panelBButton(self,text="启动隧道",width=219,command=self.startFrp).place(x=13,y=108)
         panelRButton(self,text="删除隧道",width=219).place(x=13,y=143)
+
+    def startFrp(self):
+        startFrpc(self.tun_id)
+        
     # TODO 添加复制后提示
     def copyUrl(self,arg):
         win32clipboard.OpenClipboard()

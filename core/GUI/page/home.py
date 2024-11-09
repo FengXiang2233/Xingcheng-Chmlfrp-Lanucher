@@ -9,13 +9,13 @@ class homeFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,width=783,height=418,corner_radius=0,fg_color="#0000ff")
         sidebarFrame(self).place(x=0,y=0)
-        upMenuButton(self,"启动！\n你选隧道了吗?",["a"]).place(x=585,y=350)
+        upMenuButton(self,"启动！\n你选隧道了吗?").place(x=585,y=350)
 
 class sidebarFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,height=418,width=225,corner_radius=0)
         self.pack_propagate(0)
-        ctk.CTkLabel(self,text="",image=ImageTk.PhotoImage(Image.open("./XCL/userimg.jpg").resize((65,65)))).pack(pady=(25,0))
+        ctk.CTkLabel(self,text="",image=ImageTk.PhotoImage(Image.open("./XCL/userimg.png").resize((65,65)))).pack(pady=(25,0))
         self.name=ctk.CTkFrame(self)
         self.name.pack()
         ctk.CTkLabel(self.name,text=core.g_var.User.basicInfo["username"],font=("微软雅黑",16)).pack(side="left")
