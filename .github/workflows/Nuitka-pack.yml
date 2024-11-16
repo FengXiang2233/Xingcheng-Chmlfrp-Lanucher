@@ -36,6 +36,7 @@ jobs:
           standalone: true
           onefile: false
           include-data-dir: res=res 
+          include-data-files: res/frpc.exe=build/start.dist/frpc.exe
           enable-plugins: tk-inter
 
       # Uploads artifact

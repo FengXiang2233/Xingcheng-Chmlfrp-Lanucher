@@ -25,16 +25,18 @@ class tunnelCard(ctk.CTkFrame):
     def __init__(self,master,info:dict):
         super().__init__(master,fg_color="#e5e5e5",width=245,height=183,corner_radius=12)
         self.tun_id=info["id"]
-        ctk.CTkLabel(self,text=f"# {self.tun_id}",font=("微软雅黑",15.5)).place(x=13,y=7)
-        ctk.CTkLabel(self,text=info["name"],font=("微软雅黑",15.5,"bold")).place(x=(len(str(info["id"]))+2)*9+13,y=7)
+        ctk.CTkLabel(self,text=f"#{self.tun_id}",font=("微软雅黑",15.5)).place(x=13,y=7)
+        ctk.CTkLabel(self,text=info["name"],font=("微软雅黑",15.5,"bold")).place(x=(len(str(info["id"]))+2)*9+12,y=7)
         ctk.CTkLabel(self,text="内网地址: "+info["localip"]+":"+str(info["nport"])+" - "+info["type"],font=("微软雅黑",13)).place(x=13,y=37)
         ctk.CTkLabel(self,text="节点信息: "+info["node"],font=("微软雅黑",13)).place(x=13,y=57)
         try:
-            self.cUrl=info["ip"]+":"+info["dorp"]
-            cUrlLabel=ctk.CTkLabel(self,text="连接地址: "+info["ip"]+":"+info["dorp"],font=("微软雅黑",13))
+            if info["type"] in ["http",'https']:
+                self.cUrl=info["dorp"]
+            else:
+                self.cUrl=info["ip"]+":"+info["dorp"]
         except:
             self.cUrl=""
-            cUrlLabel=ctk.CTkLabel(self,text="连接地址: ",font=("微软雅黑",13))
+        cUrlLabel=ctk.CTkLabel(self,text="连接地址: "+self.cUrl,font=("微软雅黑",13))
         cUrlLabel.bind("<ButtonPress-1>",self.copyUrl)
         cUrlLabel.place(x=13,y=77)
         panelBButton(self,text="启动隧道",width=219,command=self.startFrp).place(x=13,y=108)
