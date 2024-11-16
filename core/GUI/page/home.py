@@ -2,6 +2,7 @@ import customtkinter as ctk
 import core.g_var
 
 from PIL import Image,ImageTk
+from core.GUI.widgets.panelButton import panelRButton
 from core.GUI.widgets.upMenuButton import upMenuButton
 from core.network.chmlfrp_APIv2 import APIv2 as API
 
@@ -21,6 +22,8 @@ class sidebarFrame(ctk.CTkFrame):
         ctk.CTkLabel(self.name,text=core.g_var.User.basicInfo["username"],font=("微软雅黑",16)).pack(side="left")
         ctk.CTkLabel(self.name,text=f"#{core.g_var.User.id}",font=("微软雅黑",16),text_color="#808080").pack(side="left",padx=3)
         userInfoFrame(self).pack(pady=(16,0))
+        # TODO重置token
+        panelRButton(self,text="重置token").pack(pady=(16,0))
 
 class userInfoFrame(ctk.CTkFrame):
     def __init__(self,master):

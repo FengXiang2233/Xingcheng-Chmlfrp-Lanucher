@@ -1,8 +1,10 @@
 import customtkinter as ctk
 import win32clipboard
 
+from core.GUI.widgets.ctk_button_g import CTkButtonG
 from core.GUI.widgets.panelButton import panelBButton,panelRButton
 from core.Functions.startFrpc import startFrpc
+from CTkToolTip import *
 import core.g_var
 
 class tunnelManagerFrame(ctk.CTkFrame):
@@ -16,6 +18,9 @@ class tunnelManagerMain(ctk.CTkScrollableFrame):
         super().__init__(master,width=769,height=418,corner_radius=0,fg_color="#0000ff",scrollbar_button_color="gray65",scrollbar_button_hover_color="gray60")
         self.add_tun_card=ctk.CTkButton(self,text="+",font=("微软雅黑",60),fg_color="#e9e9e9",hover_color="#e5e5e5",text_color="#c3c3c3",width=245,height=183,corner_radius=12)
         self.add_tun_card.grid(row=0,column=0,pady=7,padx=6)
+        self.after(100,self.build)
+
+    def build(self):
         k=1
         for i in core.g_var.User.TunnelDict:
             tunnelCard(self,core.g_var.User.TunnelDict[i]).grid(row=int(k/3),column=int(k%3),pady=7,padx=6)
@@ -37,6 +42,7 @@ class tunnelCard(ctk.CTkFrame):
         except:
             self.cUrl=""
         cUrlLabel=ctk.CTkLabel(self,text="连接地址: "+self.cUrl,font=("微软雅黑",13))
+        CTkToolTip(cUrlLabel,"点击以复制")
         cUrlLabel.bind("<ButtonPress-1>",self.copyUrl)
         cUrlLabel.place(x=13,y=77)
         panelBButton(self,text="启动隧道",width=219,command=self.startFrp).place(x=13,y=108)

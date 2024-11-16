@@ -2,6 +2,7 @@ import customtkinter as ctk
 import sys
 import win32gui,win32con
 
+from core.GUI.widgets.ctk_button_g import CTkButtonG
 from core.GUI.mainTabView import MainTabView
 from core.GUI import windowManager
 from core import g_var
@@ -15,7 +16,7 @@ class Main(ctk.CTk):
         self.overrideredirect(True)
         self.main_tab_view=MainTabView(master=self)
         self.main_tab_view.place(x=0,y=0)
-        self.close_win_button=ctk.CTkButton(self,text="x",width=27,height=27,font=("微软雅黑",23,"bold"),corner_radius=24,command=self.close_win,fg_color="#ebebeb",hover_color="#e1e1e1",text_color="#bebebe")
+        self.close_win_button=CTkButtonG(self,text="x",width=42,height=42,font=("微软雅黑",23,"bold"),corner_radius=15,command=self.close_win,fg_color="#ebebeb",hover_color="#e1e1e1",text_color="#bebebe")
         self.close_win_button.place(relx=0.92,y=5)
         ctk.CTkLabel(self,text="XCL  II",font=("微软雅黑",22,"bold")).place(x=30,y=10)
         # 遮盖背景
@@ -40,14 +41,6 @@ class Main(ctk.CTk):
 
     # Override
     def mainloop(self, *args, **kwargs):
-        if not self._window_exists:
-            if sys.platform.startswith("win"):
-                self._windows_set_titlebar_color(self._get_appearance_mode())
-
-                if not self._withdraw_called_before_window_exists and not self._iconify_called_before_window_exists:
-                    self.deiconify()
-
-            self._window_exists = True
         g_var.GUI.Cover=ctk.CTkToplevel(g_var.GUI.MainWin)
         windowManager.unsetCover()
         self.check_topmost()
