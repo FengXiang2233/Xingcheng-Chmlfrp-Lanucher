@@ -33,8 +33,7 @@ jobs:
           nuitka-version: main
           script-name: start.py
           follow-imports: true
-          standalone: true
-          onefile: false
+          mode: standalone
           include-data-dir: res=res 
           include-data-files: res/frpc.exe=res/frpc.exe
           enable-plugins: tk-inter
