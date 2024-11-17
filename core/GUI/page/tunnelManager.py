@@ -4,7 +4,6 @@ import win32clipboard
 from core.GUI.widgets.ctk_button_g import CTkButtonG
 from core.GUI.widgets.panelButton import panelBButton,panelRButton
 from core.Functions.startFrpc import startFrpc
-from CTkToolTip import *
 import core.g_var
 
 class tunnelManagerFrame(ctk.CTkFrame):
@@ -42,7 +41,6 @@ class tunnelCard(ctk.CTkFrame):
         except:
             self.cUrl=""
         cUrlLabel=ctk.CTkLabel(self,text="连接地址: "+self.cUrl,font=("微软雅黑",13))
-        CTkToolTip(cUrlLabel,"点击以复制")
         cUrlLabel.bind("<ButtonPress-1>",self.copyUrl)
         cUrlLabel.place(x=13,y=77)
         panelBButton(self,text="启动隧道",width=219,command=self.startFrp).place(x=13,y=108)
