@@ -16,7 +16,7 @@ class Main(ctk.CTk):
         self.overrideredirect(True)
         self.main_tab_view=MainTabView(master=self)
         self.main_tab_view.place(x=0,y=0)
-        self.close_win_button=CTkButtonG(self,text="x",width=42,height=42,font=("微软雅黑",23,"bold"),corner_radius=15,command=self.close_win,fg_color="#ebebeb",hover_color="#e1e1e1",text_color="#bebebe")
+        self.close_win_button=CTkButtonG(self,text="x",width=42,height=42,font=("微软雅黑",23,"bold"),corner_radius=15,command=self.destroy,fg_color="#ebebeb",hover_color="#e1e1e1",text_color="#bebebe")
         self.close_win_button.place(relx=0.92,y=5)
         ctk.CTkLabel(self,text="XCL  II",font=("微软雅黑",22,"bold")).place(x=30,y=10)
         # 遮盖背景
@@ -45,10 +45,6 @@ class Main(ctk.CTk):
         windowManager.unsetCover()
         self.check_topmost()
         super().mainloop(*args, **kwargs)
-
-    # 关闭窗口
-    def close_win(self):
-        self.destroy()
 
     def check_topmost(self):
         try:

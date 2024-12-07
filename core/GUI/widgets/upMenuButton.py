@@ -3,6 +3,7 @@ import customtkinter as ctk
 import core.g_var
 from core.Functions.startFrpc import startFrpc
 from core.GUI.widgets import CTkScrollableFrameFrame
+from core.GUI.widgets.ctk_button_g import CTkButtonG
 
 class upMenuButton(ctk.CTkFrame):
     def __init__(self,master:ctk.CTkFrame,text:str):
@@ -12,8 +13,8 @@ class upMenuButton(ctk.CTkFrame):
         self.chooseid=None
         self.menuObj:MenuFrame=None
         self.master:ctk.CTkFrame=master
-        self.mainButton:ctk.CTkButton=ctk.CTkButton(self,text=self.text,height=43,corner_radius=0,state="disabled",command=self.startFrp)
-        self.menuButton:ctk.CTkButton=ctk.CTkButton(self,text="⇧",font=("微软雅黑",20,"bold"),height=43,width=15,border_width=1.5,border_color="gray90",corner_radius=0,command=self.menuOperation)
+        self.mainButton:ctk.CTkButton=CTkButtonG(self,text=self.text,height=43,noCorner="right",state="disabled",command=self.startFrp)
+        self.menuButton:ctk.CTkButton=CTkButtonG(self,text="⇧",font=("微软雅黑",20,"bold"),height=43,width=25,fg_color="#48AA9B",noCorner="left",command=self.menuOperation)
         self.mainButton.pack(side="left")
         self.menuButton.pack(side="left")
     def menuOperation(self):
