@@ -2,15 +2,12 @@ import customtkinter as ctk
 import tkinter
 import math
 import sys
-from typing import Union,Literal
-from typing_extensions import TypeAlias
+from typing import Union
 
 class DrawEngineG(ctk.DrawEngine):
 
-    noCornerMode: TypeAlias = Literal["top","bottom","left","right"]
-
     # Override
-    def __init__(self,noCorner:noCornerMode=None,**kwargs):
+    def __init__(self,noCorner=None,**kwargs):
         self.noCorner=noCorner
         super().__init__(**kwargs)
     def __calc_optimal_corner_radius(self, user_corner_radius: Union[float, int]) -> Union[float, int]:

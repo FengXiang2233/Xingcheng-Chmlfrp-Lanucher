@@ -2,12 +2,9 @@ import customtkinter as ctk
 import tkinter
 
 from core.GUI.widgets.draw_engine_g import DrawEngineG
-from typing import Union, Tuple, Callable, Optional, Any,Literal
-from typing_extensions import TypeAlias
+from typing import Union, Tuple, Callable, Optional, Any
 
 class CTkButtonG(ctk.CTkButton):
-
-    noCornerMode: TypeAlias = Literal["top","bottom","left","right"]
 
     # Override
     def __init__(self,
@@ -38,7 +35,7 @@ class CTkButtonG(ctk.CTkButton):
                  command: Union[Callable[[], Any], None] = None,
                  compound: str = "left",
                  anchor: str = "center",
-                 noCorner:noCornerMode=None,
+                 noCorner=None,
                  **kwargs):
 
         # transfer basic functionality (bg_color, size, appearance_mode, scaling) to CTkBaseClass

@@ -34,7 +34,7 @@ class loginMain(ctk.CTkFrame):
         self.ckb_KeepLogin.place(x=65,y=185)
         if token is not None:
             self.login_B.configure(text="尝试登录中...",state="disabled")
-            self.after(300,self.automaticLogin)
+            self.after(400,self.automaticLogin)
 
     def automaticLogin(self):
         try:
