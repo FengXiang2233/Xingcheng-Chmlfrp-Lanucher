@@ -36,7 +36,8 @@ jobs:
           mode: standalone
           include-data-dir: res=res 
           include-data-files: res/frpc.exe=res/frpc.exe
-          enable-plugins: tk-inter
+          enable-plugins: tk-inter,pywin32
+
 
       # Uploads artifact
       - name: Upload Artifact
