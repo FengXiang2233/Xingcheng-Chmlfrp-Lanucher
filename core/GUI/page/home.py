@@ -1,10 +1,13 @@
 import customtkinter as ctk
 import core.g_var
+import json
 
 from PIL import Image,ImageTk
 from core.GUI.widgets.panelButton import panelRButton
 from core.GUI.widgets.upMenuButton import upMenuButton
 from core.network.chmlfrp_APIv2 import APIv2 as API
+from core.network.chmlfrp_APIv1 import APIv1 as APIv1
+from core.GUI.page.login import loginFrame
 
 class homeFrame(ctk.CTkFrame):
     def __init__(self,master):
@@ -30,7 +33,20 @@ class sidebarFrame(ctk.CTkFrame):
             side="left", padx=3)
         userInfoFrame(self).pack(pady=(16, 0))
         # TODO重置token
-        panelRButton(self, text="重置token").pack(pady=(16, 0))
+        panelRButton(self, text="重置token",command=self.reToken).pack(pady=(16, 0))
+
+    def reToken(self):
+        now_token = APIv1.reToken(core.g_var.User.token)
+        if now_token == "":
+            core.g_var.User.token = core.g_var.User.token
+        else:
+            core.g_var.User.token = now_token
+            with open("./XCL/LoginData.json", "w") as file:
+                json.dump({
+                    "status": True,
+                    "token": now_token
+                }, file)
+            file.close()
 
 class userInfoFrame(ctk.CTkFrame):
     def __init__(self,master):

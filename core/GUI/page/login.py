@@ -15,11 +15,26 @@ class loginFrame(ctk.CTkFrame):
     def __init__(self,master):
         super().__init__(master,width=783,height=418,corner_radius=0,fg_color="#0000ff")
         token=None
-        if os.path.isfile("./XCL/LoginData.json"):
-            data=json.loads(open("./XCL/LoginData.json","r").read())
-            if data["status"]:
-                token=data["token"]
-        loginMain(self,token).place(x=345/2,y=148/2)
+
+        if os.path.exists("./XCL/LoginData.json") and not self.is_file_empty("./XCL/LoginData.json"):
+            if os.path.isfile("./XCL/LoginData.json"):
+                data=json.loads(open("./XCL/LoginData.json","r").read())
+                if data["status"]:
+                    token=data["token"]
+            loginMain(self,token).place(x=345/2,y=148/2)
+        else:
+            with open("./XCL/LoginData.json", "w") as file:
+                json.dump({
+                    "status": False,
+                    "token": None
+                }, file)
+            file.close()
+
+    def is_file_empty(self, file_path):
+        return os.stat(file_path).st_size == 0
+
+    def apass(self):
+        pass
 # 783-438=345 418-270=148
 
 class loginMain(ctk.CTkFrame):
