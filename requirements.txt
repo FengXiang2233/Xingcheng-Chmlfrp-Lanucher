@@ -1,4 +1,4 @@
-pywin32==306
 customtkinter==5.2.2
 pillow==10.4.0
 requests==2.32.3
+pywin32==308

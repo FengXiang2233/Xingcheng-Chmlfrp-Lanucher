@@ -12,18 +12,25 @@ class homeFrame(ctk.CTkFrame):
         sidebarFrame(self).place(x=0,y=0)
         upMenuButton(self,"启动！\n你选隧道了吗?").place(x=585,y=350)
 
+
 class sidebarFrame(ctk.CTkFrame):
-    def __init__(self,master):
-        super().__init__(master,height=418,width=225,corner_radius=0)
+    def __init__(self, master):
+        super().__init__(master, height=418, width=225, corner_radius=0)
         self.pack_propagate(0)
-        ctk.CTkLabel(self,text="",image=ImageTk.PhotoImage(Image.open("./XCL/userimg.png").resize((65,65)))).pack(pady=(25,0))
-        self.name=ctk.CTkFrame(self)
+
+        # 修改图片处理部分
+        img = Image.open("./XCL/userimg.png").resize((65, 65))
+        ctk_img = ctk.CTkImage(light_image=img, dark_image=img, size=(65, 65))
+        ctk.CTkLabel(self, text="", image=ctk_img).pack(pady=(25, 0))
+
+        self.name = ctk.CTkFrame(self)
         self.name.pack()
-        ctk.CTkLabel(self.name,text=core.g_var.User.basicInfo["username"],font=("微软雅黑",16)).pack(side="left")
-        ctk.CTkLabel(self.name,text=f"#{core.g_var.User.id}",font=("微软雅黑",16),text_color="#808080").pack(side="left",padx=3)
-        userInfoFrame(self).pack(pady=(16,0))
+        ctk.CTkLabel(self.name, text=core.g_var.User.basicInfo["username"], font=("微软雅黑", 16)).pack(side="left")
+        ctk.CTkLabel(self.name, text=f"#{core.g_var.User.id}", font=("微软雅黑", 16), text_color="#808080").pack(
+            side="left", padx=3)
+        userInfoFrame(self).pack(pady=(16, 0))
         # TODO重置token
-        panelRButton(self,text="重置token").pack(pady=(16,0))
+        panelRButton(self, text="重置token").pack(pady=(16, 0))
 
 class userInfoFrame(ctk.CTkFrame):
     def __init__(self,master):
