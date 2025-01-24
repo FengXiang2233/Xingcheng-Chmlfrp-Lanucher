@@ -9,6 +9,7 @@ def start():
     g_var.GUI.MainWin=main.Main()
     g_var.GUI.MainWin.mainloop()
 
+# -----配置文件检查防止崩溃------
 def is_file_empty(file_path):
     return os.stat(file_path).st_size == 0
 
@@ -32,7 +33,8 @@ def detection():
             restoration()
     except:
         restoration()
-
+# -----------
+# 启动程序
 if __name__ == '__main__':
     if os.path.exists("./XCL/LoginData.json") and not is_file_empty("./XCL/LoginData.json"):
         start()

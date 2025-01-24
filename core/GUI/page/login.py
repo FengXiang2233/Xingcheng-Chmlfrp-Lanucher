@@ -76,6 +76,7 @@ class loginMain(ctk.CTkFrame):
     def automaticLogin(self):
         try:
             data = API.getUserInfo(self.token)
+            # TODO 自动下载frpc
             if data is not None:
                 data["token"] = self.token
                 core.g_var.User = user(data)

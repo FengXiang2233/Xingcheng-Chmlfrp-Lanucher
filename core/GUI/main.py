@@ -1,8 +1,7 @@
 import customtkinter as ctk
 import sys
-from win32gui import FindWindow, GetWindowLong, SetWindowLong, SetWindowPos, GetForegroundWindow
-from win32con import GWL_EXSTYLE, WS_EX_APPWINDOW, HWND_NOTOPMOST, SWP_NOMOVE, SWP_NOSIZE, SWP_FRAMECHANGED
-
+import win32gui
+import win32con
 from core.GUI.widgets.ctk_button_g import CTkButtonG
 from core.GUI.mainTabView import MainTabView
 from core.GUI import windowManager
@@ -49,12 +48,15 @@ class Main(ctk.CTk):
         self.main_tab_view.add_tab("登录")
         self.main_tab_view.add_tab("设置")
 
+        # -
+
         self.update_idletasks()
-        self.hwnd = FindWindow(None, self.title())
+        self.hwnd = win32gui.FindWindow(None, self.title())
         self.add_taskbar_icon()
         self.attributes('-topmost', 'true')
         self.attributes('-topmost', 'false')
 
+    # Override
     def mainloop(self, *args, **kwargs):
         g_var.GUI.Cover = ctk.CTkToplevel(g_var.GUI.MainWin)
         windowManager.unsetCover()
@@ -63,7 +65,7 @@ class Main(ctk.CTk):
 
     def check_topmost(self):
         try:
-            top_window = GetForegroundWindow()
+            top_window = win32gui.GetForegroundWindow()
             if top_window == self.hwnd:
                 g_var.GUI.Cover.attributes('-topmost', 'true')
                 g_var.GUI.Cover.attributes('-topmost', 'false')
@@ -73,11 +75,11 @@ class Main(ctk.CTk):
 
     def add_taskbar_icon(self):
         # 修改窗口样式，WS_EX_APPWINDOW 确保窗口在任务栏中显示
-        extended_style = GetWindowLong(self.hwnd, GWL_EXSTYLE)
-        SetWindowLong(self.hwnd, GWL_EXSTYLE, extended_style | WS_EX_APPWINDOW)
-        SetWindowPos(
+        extended_style = win32gui.GetWindowLong(self.hwnd, win32con.GWL_EXSTYLE)
+        win32gui.SetWindowLong(self.hwnd, win32con.GWL_EXSTYLE, extended_style | win32con.WS_EX_APPWINDOW)
+        win32gui.SetWindowPos(
             self.hwnd,
-            HWND_NOTOPMOST,
+            win32con.HWND_NOTOPMOST,
             0, 0, 0, 0,
-            SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED
+            win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_FRAMECHANGED
         )
