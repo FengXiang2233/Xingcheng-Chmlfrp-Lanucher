@@ -7,7 +7,7 @@ from PIL import Image
 
 
 def init():
-    # log init
+    # 登录
     open("./last.log", "w").close()
     logging.basicConfig(
         level=logging.DEBUG,
@@ -17,7 +17,7 @@ def init():
             logging.StreamHandler()
         ]
     )
-    # Lanucher init
+    # Lanucher 初始化
     logging.info("程序初始化中..")
     LanucherInit()
 

@@ -12,7 +12,7 @@ class APIv1:
         else:
             return ""
 
-    def tunnel_deletion(usertoken:str,userid:int,nodeid:int):
+    def tunnel_deletion(usertoken:str,userid:int,nodeid:int): # 删除隧道 主要是因为v2的API不能用
         url_v1 = f"{APIv1.url}/deletetl.php"
         params = {
             "token": usertoken,

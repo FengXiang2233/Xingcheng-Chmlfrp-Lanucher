@@ -20,6 +20,7 @@ class MainTabView(ctk.CTkTabview):
 
     # Override
     def _segmented_button_callback(self, selected_name):
+        # self._tab_dict[self._current_name].grid_forget()
         self._current_name = selected_name
         self._set_grid_current_tab()
         windowManager.upCover()

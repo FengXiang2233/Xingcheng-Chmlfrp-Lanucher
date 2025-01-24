@@ -20,7 +20,10 @@ class sidebarFrame(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master, height=418, width=225, corner_radius=0)
         self.pack_propagate(0)
-
+        # 原来的图片处理部分
+        # ctk.CTkLabel(self, text="", image=ImageTk.PhotoImage(Image.open("./XCL/userimg.png").resize((65, 65)))).pack(
+        #     pady=(25, 0))
+        # self.name = ctk.CTkFrame(self)
         # 修改图片处理部分
         img = Image.open("./XCL/userimg.png").resize((65, 65))
         ctk_img = ctk.CTkImage(light_image=img, dark_image=img, size=(65, 65))
@@ -35,7 +38,7 @@ class sidebarFrame(ctk.CTkFrame):
         # TODO重置token
         panelRButton(self, text="重置token",command=self.reToken).pack(pady=(16, 0))
 
-    def reToken(self):
+    def reToken(self): #写入新的token到文件中
         now_token = APIv1.reToken(core.g_var.User.token)
         if now_token == "":
             core.g_var.User.token = core.g_var.User.token

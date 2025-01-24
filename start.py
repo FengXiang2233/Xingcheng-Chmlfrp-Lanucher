@@ -4,6 +4,7 @@ import os
 import json
 
 init.init()
+# -----启动函数------
 def start():
     # 启动！
     g_var.GUI.MainWin=main.Main()
@@ -33,8 +34,9 @@ def detection():
             restoration()
     except:
         restoration()
-# -----------
-# 启动程序
+
+# -----启动程序------
+
 if __name__ == '__main__':
     if os.path.exists("./XCL/LoginData.json") and not is_file_empty("./XCL/LoginData.json"):
         start()
