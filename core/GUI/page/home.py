@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import core.g_var
+import json
 
 from PIL import Image,ImageTk
 from core.GUI.widgets.panelButton import panelRButton
@@ -13,17 +14,40 @@ class homeFrame(ctk.CTkFrame):
         upMenuButton(self,"启动！\n你选隧道了吗?").place(x=585,y=350)
 
 class sidebarFrame(ctk.CTkFrame):
-    def __init__(self,master):
-        super().__init__(master,height=418,width=225,corner_radius=0)
+    def __init__(self, master):
+        super().__init__(master, height=418, width=225, corner_radius=0)
         self.pack_propagate(0)
-        ctk.CTkLabel(self,text="",image=ImageTk.PhotoImage(Image.open("./XCL/userimg.png").resize((65,65)))).pack(pady=(25,0))
-        self.name=ctk.CTkFrame(self)
+        # 原来的图片处理部分
+        # ctk.CTkLabel(self, text="", image=ImageTk.PhotoImage(Image.open("./XCL/userimg.png").resize((65, 65)))).pack(
+        #     pady=(25, 0))
+        # self.name = ctk.CTkFrame(self)
+        # 修改图片处理部分
+        img = Image.open("./XCL/userimg.png").resize((65, 65))
+        ctk_img = ctk.CTkImage(light_image=img, dark_image=img, size=(65, 65))
+        ctk.CTkLabel(self, text="", image=ctk_img).pack(pady=(25, 0))
+
+        self.name = ctk.CTkFrame(self)
         self.name.pack()
-        ctk.CTkLabel(self.name,text=core.g_var.User.basicInfo["username"],font=("微软雅黑",16)).pack(side="left")
-        ctk.CTkLabel(self.name,text=f"#{core.g_var.User.id}",font=("微软雅黑",16),text_color="#808080").pack(side="left",padx=3)
-        userInfoFrame(self).pack(pady=(16,0))
+        ctk.CTkLabel(self.name, text=core.g_var.User.basicInfo["username"], font=("微软雅黑", 16)).pack(side="left")
+        ctk.CTkLabel(self.name, text=f"#{core.g_var.User.id}", font=("微软雅黑", 16), text_color="#808080").pack(
+            side="left", padx=3)
+        userInfoFrame(self).pack(pady=(16, 0))
         # TODO重置token
-        panelRButton(self,text="重置token").pack(pady=(16,0))
+        panelRButton(self, text="重置token",command=self.reToken).pack(pady=(16, 0))
+
+    def reToken(self): #写入新的token到文件中
+        now_token = APIv1.reToken(core.g_var.User.token)
+        if now_token == "":
+            core.g_var.User.token = core.g_var.User.token
+        else:
+            core.g_var.User.token = now_token
+            with open("./XCL/LoginData.json", "w") as file:
+                json.dump({
+                    "status": True,
+                    "token": now_token
+                }, file)
+            file.close()
+
 
 class userInfoFrame(ctk.CTkFrame):
     def __init__(self,master):
