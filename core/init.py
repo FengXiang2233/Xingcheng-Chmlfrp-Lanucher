@@ -1,6 +1,7 @@
 import os
 import logging
 import customtkinter as ctk
+import json
 
 from core import g_var
 from PIL import Image
@@ -21,6 +22,29 @@ def init():
     logging.info("程序初始化中..")
     LanucherInit()
 
+def is_file_empty(file_path):
+    return os.stat(file_path).st_size == 0
+
+def restoration():
+    with open("./XCL/LoginData.json", "w") as file:
+        json.dump({
+            "status": False,
+            "token": None
+        }, file)
+    file.close()
+
+def detection():
+    try:
+        data = json.loads(open("./XCL/LoginData.json", "r").read())
+        a = data["status"]
+        b = data["token"]
+        data.close()
+        if a == "":
+            restoration()
+        if b == "":
+            restoration()
+    except:
+        restoration()
 
 def LanucherInit():
     # XCL dir
