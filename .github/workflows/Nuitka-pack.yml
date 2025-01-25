@@ -32,7 +32,6 @@ jobs:
         with:
           nuitka-version: main
           script-name: start.py
-          follow-imports: true
           mode: standalone
           include-data-dir: res=res 
           include-data-files: res/frpc.exe=res/frpc.exe
@@ -40,7 +39,7 @@ jobs:
 
       # Uploads artifact
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: XCL II-Alpha
           path: build/start.dist/
