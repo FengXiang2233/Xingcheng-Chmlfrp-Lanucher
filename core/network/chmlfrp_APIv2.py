@@ -30,3 +30,13 @@ class APIv2:
             return data["data"]
         else:
             return None
+
+    def delete_tunnel(usertoken:str,tunnelid:int)->bool:
+        data=requests.get(APIv2.url+"/deletetunnel",{
+            "token":usertoken,
+            "tunnelid":tunnelid
+        }).json()
+        if data["code"]==200:
+            return True
+        else:
+            return False

@@ -65,6 +65,7 @@ class Main(ctk.CTk):
 
     def check_topmost(self):
         try:
+            # 获取当前最上面的窗口句柄
             top_window = win32gui.GetForegroundWindow()
             if top_window == self.hwnd:
                 g_var.GUI.Cover.attributes('-topmost', 'true')
