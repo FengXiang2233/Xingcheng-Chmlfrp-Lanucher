@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import sys
-import win32gui,win32con
+import win32gui
+import win32con
 
 from core.GUI.widgets.ctk_button_g import CTkButtonG
 from core.GUI.mainTabView import MainTabView
