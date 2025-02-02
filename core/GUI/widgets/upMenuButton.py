@@ -33,7 +33,7 @@ class upMenuButton(ctk.CTkFrame):
 class MenuFrame(CTkScrollableFrameFrame.CTkScrollableFrameFrame):
     def __init__(self,master:upMenuButton):
         self.smaster=master
-        super().__init__(core.g_var.GUI.Cover,width=142)
+        super().__init__(core.g_var.GUI.CoverWinStack[0],width=142)
         for options in core.g_var.User.TunnelDict.keys():
             Options(self.ScrollableFrame,self,core.g_var.User.TunnelDict[options]).pack(anchor=ctk.W,pady=3)
 

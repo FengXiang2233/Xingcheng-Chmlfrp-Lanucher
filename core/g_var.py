@@ -5,13 +5,14 @@ import core.GUI.page.setting as setting
 import core.GUI.page.tunnelManager as tunnelManager
 from core.User import User as user
 from core.GUI import main
+from core.GUI.widgets.ctk_toplevel_g import CTkToplevelG
 from PIL import ImageFile
+from typing import List
 
 class GUI:
     MainWin:main.Main
     BgPic:ImageFile
-    Cover:ctk.CTkToplevel
-    CoverFrame:ctk.CTkFrame
+    CoverWinStack:List[CTkToplevelG]=[]
     winX=0
     winY=0
     mainTabMap={

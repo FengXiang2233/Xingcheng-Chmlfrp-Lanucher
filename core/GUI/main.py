@@ -3,6 +3,7 @@ import sys
 import win32gui,win32con
 
 from core.GUI.widgets.ctk_button_g import CTkButtonG
+from core.GUI.widgets.ctk_toplevel_g import CTkToplevelG
 from core.GUI.mainTabView import MainTabView
 from core.GUI import windowManager
 from core import g_var
@@ -41,8 +42,12 @@ class Main(ctk.CTk):
 
     # Override
     def mainloop(self, *args, **kwargs):
-        g_var.GUI.Cover=ctk.CTkToplevel(g_var.GUI.MainWin)
-        windowManager.unsetCover()
+        #TODO 划定覆盖层数
+        for i in range(1):
+            g_var.GUI.CoverWinStack.append(None)
+        for i in range(len(g_var.GUI.CoverWinStack)):
+            g_var.GUI.CoverWinStack[i]=CTkToplevelG(g_var.GUI.MainWin)
+        windowManager.unset0Cover()
         self.check_topmost()
         super().mainloop(*args, **kwargs)
 
@@ -51,8 +56,10 @@ class Main(ctk.CTk):
             # 获取当前最上面的窗口句柄
             top_window = win32gui.GetForegroundWindow()
             if top_window == self.hwnd:
-                g_var.GUI.Cover.attributes('-topmost', 'true')
-                g_var.GUI.Cover.attributes('-topmost', 'false')
+                for win in g_var.GUI.CoverWinStack[::-1]:
+                    win.attributes('-topmost', 'true')
+                for win in g_var.GUI.CoverWinStack:
+                    win.attributes('-topmost', 'false')
         except:
             pass
         # 继续循环检查

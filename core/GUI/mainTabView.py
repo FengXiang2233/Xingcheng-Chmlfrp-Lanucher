@@ -14,7 +14,7 @@ class MainTabView(ctk.CTkTabview):
         #self._tab_dict[self._current_name].grid_forget()
         self._current_name = selected_name
         self._set_grid_current_tab()
-        windowManager.upCover()
+        windowManager.up0Cover()
         if self._command is not None:
             self._command()
 
